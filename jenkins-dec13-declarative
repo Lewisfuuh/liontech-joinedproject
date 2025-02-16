@@ -8,7 +8,7 @@ pipeline{
 	  stage('clonefromscm'){
 	    steps{
 	    sh "echo jekins to source code from scm"
-	    git branch: 'dec13', url: 'https://github.com/tenbanliontech/liontech-joinedproject.git'
+	    git branch: 'wum-branch', url:'https://github.com/Lewisfuuh/liontech-joinedproject.git'
 	    }
 	  }
 
@@ -38,7 +38,7 @@ pipeline{
 	  stage('deploy to production'){
 	    steps{
 	    sh "echo 'deploy to prod'"
-	    deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CRED', path: '', url: 'http://54.242.111.209:8009/manager/html')], contextPath: 'dec-app', war: 'target/*.war'
+	    deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CRED', path: '', url: 'http://34.205.127.133:8009')], contextPath: 'lewis-pipeline-project', war: 'target/*.war'
 	    }
 	  }
 	}

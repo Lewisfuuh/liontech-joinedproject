@@ -1,0 +1,44 @@
+pipeline{
+  agent any 
+  tools{
+    maven "Maven 3.9.9"
+  }
+  stages{
+    stage('clonefromscm'){
+      steps{
+        sh "echo  Jenkins is clonefromscm"
+        git branch: 'wum-branch', url:'https://github.com/Lewisfuuh/liontech-joinedproject.git'
+
+      }
+    }
+
+    stage('Maven-Build'){
+      steps{
+        sh "echo 'running Junit testing'"
+        sh "echo'Maven is packing the source code'"
+        sh "mvn validate"
+        sh "mvn install"
+        sh "mvn clean package"
+      }
+    }
+
+    stage('sonarqube Code Quality Analyis'){
+      steps{
+        sh "echo 'Performing code Quality Analyis'"
+        sh  "mvn sonar:sonar"
+      }
+    }
+
+    stage('uploadArtifacttoNexus'){
+      steps{
+        sh "mvn deploy"
+      }
+    }
+
+    stage('deploy to dev'){
+      steps{
+        deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CRED', path: '', url: 'http://34.205.127.133:8009')], contextPath: 'lewis-pipeline-project', war: 'target/*.war'
+      }
+    }
+  }
+}

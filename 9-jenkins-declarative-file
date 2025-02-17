@@ -1,13 +1,14 @@
-pipeline{
-  agent any 
-  tools{
-    maven "Maven 3.9.9"
-  }
-  stages{
-    stage('clonefromscm'){
-      steps{
-        sh "echo  Jenkins is clonefromscm"
-        git branch: git branch:'wum', url: 'https://github.com/Lewisfuuh/liontech-joinedproject.git'
+  1 pipeline{
+  2         agent  any
+  3         tools{
+  4           maven "maven3.9.9"
+  5         }
+  6
+  7         stages{
+  8           stage('clonefromscm'){
+  9             steps{
+ 10             sh "echo jekins to source code from scm"
+ 11             git branch: 'wum', url: 'https://github.com/Lewisfuuh/liontech-joinedproject.git'
+ 12             }
+ 13           }
 
-      }
-    }

@@ -10,4 +10,14 @@ pipeline{
         git branch: 'wum-branch', url:'https://github.com/Lewisfuuh/liontech-joinedproject.git'
 
       }
+    } 
+
+    stage('Maven-Build'){
+      steps{
+        sh "echo 'running Junit testing'"
+        sh "echo'Maven is packing the source code'"
+        sh "mvn validate"
+        sh "mvn install"
+        sh "mvn clean package"
+      }
     }
